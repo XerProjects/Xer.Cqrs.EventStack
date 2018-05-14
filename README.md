@@ -10,9 +10,9 @@
 * [Features](#features)
 * [Installation](#installation)
 * [Getting Started](#getting-started)
-   * [Event Handling](#event-handling)
-      * [Event Handler Registration](#event-handler-registration)
-      * [Delegating Events to Event Handlers](#delegating-events-to-event-handlers)
+   * [Sample Event and Event Handlers](#sample-event-and-event-handlers)
+   * [Event Handler Registration](#event-handler-registration)
+   * [Delegating Events to Event Handlers](#delegating-events-to-event-handlers)
 
 # Overview
 Simple CQRS library
@@ -67,7 +67,7 @@ To install Nuget packages:
 ## Getting Started
 (Samples are in ASP.NET Core)
 
-### Event Handling
+### Sample Event and Event Handlers
 
 ```csharp
 public class ProductRegisteredEvent
@@ -81,6 +81,27 @@ public class ProductRegisteredEvent
         ProductName = productName;
     }
 }
+
+// Sync event handler
+public class ProductRegisteredEventHandler : IEventHandler<ProductRegisteredEvent>
+{
+    public void Handle(ProductRegisteredEvent @event)
+    {
+        System.Console.WriteLine($"ProductRegisteredEventHandler handled {@event.GetType()}.");
+    }
+}
+
+// Async event handler
+public class ProductRegisteredEmailNotifier : IEventAsyncHandler<ProductRegisteredEvent>
+{
+    public Task HandleAsync(ProductRegisteredEvent @event, CancellationToken ct = default(CancellationToken))
+    {
+        System.Console.WriteLine($"Sending email notification...");
+        return Task.CompletedTask;
+    }
+}
+
+
 ```
 #### Event Handler Registration
 
@@ -107,25 +128,6 @@ public void ConfigureServices(IServiceCollection services)
     });
     ...
 }
-
-// Sync event handler
-public class ProductRegisteredEventHandler : IEventHandler<ProductRegisteredEvent>
-{
-    public void Handle(ProductRegisteredEvent @event)
-    {
-        System.Console.WriteLine($"ProductRegisteredEventHandler handled {@event.GetType()}.");
-    }
-}
-
-// Async event handler
-public class ProductRegisteredEmailNotifier : IEventAsyncHandler<ProductRegisteredEvent>
-{
-    public Task HandleAsync(ProductRegisteredEvent @event, CancellationToken ct = default(CancellationToken))
-    {
-        System.Console.WriteLine($"Sending email notification...");
-        return Task.CompletedTask;
-    }
-}
 ```
 
 ##### 2. Container Registration
@@ -142,28 +144,9 @@ public void ConfigureServices(IServiceCollection services)
     services.AddCqrs(typeof(ProductRegisteredEventHandler).Assembly);
     ...
 }
-
-// Sync event handler 1.
-public class ProductRegisteredEventHandler : IEventHandler<ProductRegisteredEvent>
-{
-    public void Handle(ProductRegisteredEvent @event)
-    {
-        System.Console.WriteLine($"ProductRegisteredEventHandler handled {@event.GetType()}.");
-    }
-}
-
-// Async event handler 2.
-public class ProductRegisteredEmailNotifier : IEventAsyncHandler<ProductRegisteredEvent>
-{
-    public Task HandleAsync(ProductRegisteredEvent @event, CancellationToken ct = default(CancellationToken))
-    {
-        System.Console.WriteLine($"Sending email notification...");
-        return Task.CompletedTask;
-    }
-}
 ```
 
-#### Delegating Events to Event Handlers
+### Delegating Events to Event Handlers
 After setting up the event delegator in the Ioc container, events can now be delegated by simply doing:
 ```csharp
 ...
