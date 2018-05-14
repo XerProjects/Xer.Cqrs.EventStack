@@ -28,20 +28,22 @@ This project composes of components for implementing the CQRS pattern (Event Han
       * achieved by creating implementations of IContainerAdapter or using pre-made extensions packages for supported containers:
         * Microsoft.DependencyInjection
         
-        [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.Microsoft.DependencyInjection.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.Microsoft.DependencyInjection/)
+          [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.Microsoft.DependencyInjection.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.Microsoft.DependencyInjection/)
         
         * SimpleInjector
         
-        [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.SimpleInjector.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.SimpleInjector/)
+          [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.SimpleInjector.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.SimpleInjector/)
         
         * Autofac
         
-        [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.Autofac.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.Autofac/)
+          [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.Autofac.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.Autofac/)
         
     * Attribute registration 
       * achieved by marking methods with [EventHandler] attributes from the Xer.Cqrs.EventStack.Extensions.Attributes package.
       
-      [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.Extensions.Attributes.svg)](https://www.nuget.org/packages/Xer.Cqrs.Extensions.Attributes/)
+        [![NuGet](https://img.shields.io/nuget/v/Xer.Cqrs.EventStack.Extensions.Attributes.svg)](https://www.nuget.org/packages/Xer.Cqrs.EventStack.Extensions.Attributes/)
+        
+      * See https://github.com/XerProjects/Xer.Cqrs.EventStack.Extensions.Attributes for documentation.
 
 ## Installation
 You can simply clone this repository, build the source, reference the dll from the project, and code away!
